@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 const AppWrapper = styled.div`
   height: 100vh;
@@ -16,6 +16,10 @@ const Flex = styled.div`
   flex-direction: ${props => props.col ? 'column' : 'row'};
   flex: ${props => props.n || 'initial'};
   padding: 1rem;
+  ${props => props.center && css`
+    justify-content: center;
+    align-items: center;
+  `}
 `
 
 const Title = styled.p`
@@ -28,6 +32,15 @@ const SubTitle = styled.p`
   color: darkgray;
   margin-top: 0.5rem;
   text-align: center;
+`
+
+const Monospace = styled.p`
+  font-family: monospace;
+  color: black;
+`
+
+const Red = styled.span`
+  color: red;
 `
 
 function App() {
@@ -101,6 +114,9 @@ function App() {
           <SubTitle>Output in CSV format <a onClick={handleDownload} href="#download">[Download]</a></SubTitle>
           <TextArea value={output} disabled></TextArea>
         </Flex>
+      </Flex>
+      <Flex center>
+        <Monospace>With <Red>{'<3'}</Red> From Uppsala</Monospace>
       </Flex>
     </AppWrapper>
   )
