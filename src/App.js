@@ -1,26 +1,43 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styled from 'styled-components'
+
+const AppWrapper = styled.div`
+  height: 100vh;
+  width: 100%;
+`
+
+const TextArea = styled.textarea`
+  width: 100%;
+  height: 75vh;
+`
+
+const Flex = styled.div`
+  display: flex;
+  flex-direction: ${props => props.col ? 'column' : 'row'};
+  flex: ${props => props.n || 'initial'};
+  padding: 1rem;
+`
+
+const Title = styled.p`
+  font-weight: bold;
+  text-align: center;
+`
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <AppWrapper>
+      <Flex>
+        <Flex n="1" col>
+          <Title>JSON</Title>
+          <TextArea>Hello</TextArea>
+        </Flex>
+        <Flex n="1" col>
+          <Title>CSV</Title>
+          <TextArea>Hello2</TextArea>
+        </Flex>
+      </Flex>
+    </AppWrapper>
+  )
 }
 
 export default App;
