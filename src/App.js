@@ -111,7 +111,7 @@ function App () {
       <Flex>
         <Flex n='1' col>
           <Title>JSON</Title>
-          <SubTitle>Input JSON from Trello export</SubTitle>
+          <SubTitle>Paste JSON content from Trello export</SubTitle>
           <TextArea value={input} onChange={handleInput} />
         </Flex>
         <Flex n='1' col>
