@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 import styled, { css } from 'styled-components'
 
 const AppWrapper = styled.div`
@@ -34,43 +34,48 @@ const SubTitle = styled.p`
   text-align: center;
 `
 
-const Monospace = styled.p`
+const Monospace = styled.a`
   font-family: monospace;
+  text-decoration: none;
+  margin-bottom: 1rem;
   color: black;
+  &:hover {
+    text-decoration: underline;
+  }
 `
 
 const Red = styled.span`
   color: red;
 `
 
-function App() {
+function App () {
   const [input, setInput] = useState()
   const [output, setOutput] = useState()
   const handleInput = (e) => {
-    setInput(e.target.value);
+    setInput(e.target.value)
   }
   const parseJSON = (str) => {
     try {
-      return JSON.parse(str);
-    } catch(e) {
+      return JSON.parse(str)
+    } catch (e) {
       console.log(e)
       // set error or something
     }
   }
   const handleDownload = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     const { URL, Blob } = window
     const data = new Blob([output])
     const a = document.createElement('a')
-    a.href = URL.createObjectURL(data);
+    a.href = URL.createObjectURL(data)
     a.style.display = 'none'
-    a.download=`trello-csv-${new Date().toISOString()}.csv`
+    a.download = `trello-csv-${new Date().toISOString()}.csv`
     document.body.appendChild(a)
     a.click()
     a.remove()
   }
   useEffect(() => {
-    if (input == null || input == false) return
+    if (input == null || input === false) return
     const timerId = setTimeout(() => {
       const json = parseJSON(input)
       const lists = json.lists.reduce((acc, list) => ({
@@ -91,35 +96,37 @@ function App() {
             .map((item) => `${item.name}:${item.state}`)
             .join('-')
         ).join('--')
-        return [name, description, listName, null, checklists ]
+        return [name, description, listName, null, checklists]
       })
       const csv = [
         csvHeaders.join(','),
         ...csvContent
       ]
-      setOutput(csv.join('\n'));
-    }, 500);
+      setOutput(csv.join('\n'))
+    }, 500)
     return () => clearTimeout(timerId)
   }, [input, setOutput])
   return (
     <AppWrapper>
       <Flex>
-        <Flex n="1" col>
+        <Flex n='1' col>
           <Title>JSON</Title>
           <SubTitle>Input JSON from Trello export</SubTitle>
-          <TextArea value={input} onChange={handleInput}></TextArea>
+          <TextArea value={input} onChange={handleInput} />
         </Flex>
-        <Flex n="1" col>
+        <Flex n='1' col>
           <Title>CSV</Title>
-          <SubTitle>Output in CSV format <a onClick={handleDownload} href="#download">[Download]</a></SubTitle>
-          <TextArea value={output} disabled></TextArea>
+          <SubTitle>Output in CSV format <a onClick={handleDownload} href='#download'>[Download]</a></SubTitle>
+          <TextArea value={output} disabled />
         </Flex>
       </Flex>
       <Flex center>
-        <Monospace>With <Red>{'<3'}</Red> From Uppsala</Monospace>
+        <Monospace href='https://sunlabs.se?i=crello' target='_blank' rel='noopener noreferrer'>
+          With <Red>{'<3'}</Red> From Uppsala
+        </Monospace>
       </Flex>
     </AppWrapper>
   )
 }
 
-export default App;
+export default App
